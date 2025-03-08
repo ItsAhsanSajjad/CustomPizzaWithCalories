@@ -4,6 +4,7 @@ import pzinsta.pizzeria.model.pizza.Ingredient;
 import pzinsta.pizzeria.model.pizza.IngredientType;
 
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PizzaBuilderForm {
@@ -22,7 +23,7 @@ public class PizzaBuilderForm {
     @NotNull
     private Long cutStyleId;
 
-    private List<IngredientGroup> ingredientGroups;
+    private List<IngredientGroup> ingredientGroups = new ArrayList<>();
 
     private int quantity;
 

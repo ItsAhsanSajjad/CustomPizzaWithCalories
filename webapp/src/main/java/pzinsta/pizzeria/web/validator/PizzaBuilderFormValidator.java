@@ -88,7 +88,7 @@ public class PizzaBuilderFormValidator implements Validator {
     }
 
     private void validateQuantity(PizzaBuilderForm pizzaBuilderForm, Errors errors) {
-        if (!Range.closed(pizzaQuantityMin,pizzaQuantityMax).contains(pizzaBuilderForm.getQuantity())) {
+        if (!Range.closed(pizzaQuantityMin, pizzaQuantityMax).contains(pizzaBuilderForm.getQuantity())) {
             errors.rejectValue("quantity", "pizza.quantity.out.of.range", ArrayUtils.toArray(pizzaQuantityMin, pizzaQuantityMax), "pizza.quantity.out.of.range");
         }
     }
@@ -102,7 +102,12 @@ public class PizzaBuilderFormValidator implements Validator {
     }
 
     private List<IngredientQuantity> getSelectedIngredients(PizzaBuilderForm pizzaBuilderForm) {
-        return pizzaBuilderForm.getIngredientGroups().stream().map(PizzaBuilderForm.IngredientGroup::getIngredientQuantities).flatMap(List::stream)
+        if (pizzaBuilderForm.getIngredientGroups() == null) {
+            return List.of();
+        }
+        return pizzaBuilderForm.getIngredientGroups().stream()
+                .map(PizzaBuilderForm.IngredientGroup::getIngredientQuantities)
+                .flatMap(List::stream)
                 .filter(ingredientQuantity -> ingredientQuantity.getIngredientSide() != PizzaBuilderForm.IngredientSide.NONE)
                 .collect(Collectors.toList());
     }

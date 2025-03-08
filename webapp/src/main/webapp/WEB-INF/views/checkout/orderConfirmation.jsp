@@ -17,6 +17,7 @@
                         <div class="panel panel-default">
                             <div class="panel-body">
                                 <%@ include file="../fragments/orderItem.jspf" %>
+                                <p>Total Calories: ${orderItem.pizza.totalCalories}</p>
                             </div>
                         </div>
                     </div>
@@ -29,7 +30,6 @@
             </form:form>
 
         </div>
-
 
         <%@ include file="../fragments/footer.jspf" %>
     </body>
