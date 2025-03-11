@@ -99,8 +99,12 @@ public class Pizza implements Serializable {
     // Calculate total calories
     public int getTotalCalories() {
         int baseCalories = getBaseCaloriesBySize();
-        int leftSideCalories = leftPizzaSide.getIngredients().stream().mapToInt(ingredient -> IngredientCalorieData.getCalories(ingredient.getName())).sum();
-        int rightSideCalories = rightPizzaSide.getIngredients().stream().mapToInt(ingredient -> IngredientCalorieData.getCalories(ingredient.getName())).sum();
+        int leftSideCalories = leftPizzaSide.getPizzaItems().stream()
+                            .mapToInt(item -> IngredientCalorieData.getCalories(item.getIngredient().getName()) * item.getQuantity())
+                            .sum();
+        int rightSideCalories = rightPizzaSide.getPizzaItems().stream()
+                            .mapToInt(item -> IngredientCalorieData.getCalories(item.getIngredient().getName()) * item.getQuantity())
+                            .sum();
         return baseCalories + leftSideCalories + rightSideCalories;
     }
 
